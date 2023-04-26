@@ -1,7 +1,7 @@
 const { productService } = require('../services');
 const errorMap = require('../utils/errorMap');
 
-const listProducts = async (_req, res) => {
+const findAllProducts = async (_req, res) => {
   const { type, message } = await productService.findAll();
 
   if (type) return res.status(errorMap.mapError(type)).send({ message });
@@ -18,4 +18,4 @@ const getProduct = async (req, res) => {
   res.status(200).send(message);
 };
 
-module.exports = { listProducts, getProduct };
+module.exports = { findAllProducts, getProduct };
