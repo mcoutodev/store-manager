@@ -5,7 +5,7 @@ const connection = require('../../../src/models/connection');
 const { productModel } = require('../../../src/models');
 const { products } = require('./mocks/product.model.mock');
 
-describe('Model: productModel', function () {
+describe('Testa o modelo de produtos', function () {
   it('Recuperando a lista de produtos', async function () {
     sinon.stub(connection, 'execute').resolves([products]);
     const result = await productModel.findAll();
@@ -16,5 +16,9 @@ describe('Model: productModel', function () {
     sinon.stub(connection, 'execute').resolves([[products[0]]]);
     const result = await productModel.findById(1);
     expect(result).to.be.deep.equal(products[0]);
+  });
+
+  afterEach(function () {
+    sinon.restore();
   });
 });
