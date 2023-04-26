@@ -12,5 +12,7 @@ const products = [
     "name": "Escudo do Capitão América"
   }
 ];
+const newProduct = { name: 'Novo Produto' };
+const insertId = 1;
 
-module.exports = { products };
+module.exports = { products, newProduct, insertId };

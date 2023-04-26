@@ -1,9 +1,7 @@
 const chai = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
-
 const { expect } = chai;
-chai.use(sinonChai);
 
 const { productController } = require('../../../src/controllers');
 const { productService } = require('../../../src/services');
@@ -12,7 +10,12 @@ const {
   invalidId,
   products,
   validProduct,
+  happyAllProductsResponse,
+  happyProductResponse,
+  unhappyProductResponse,
 } = require('./mocks/product.controller.mock');
+
+chai.use(sinonChai);
 
 describe('Testa o controller de produtos', () => {
   it('Deve retornar um array com todos os produtos', async () => {
@@ -24,7 +27,7 @@ describe('Testa o controller de produtos', () => {
 
     sinon
       .stub(productService, 'findAll')
-      .resolves({ type: null, message: products });
+      .resolves(happyAllProductsResponse);
 
     await productController.listProducts(req, res);
 
@@ -41,7 +44,7 @@ describe('Testa o controller de produtos', () => {
 
     sinon
       .stub(productService, 'findById')
-      .resolves({ type: null, message: validProduct });
+      .resolves(happyProductResponse);
 
     await productController.getProduct(req, res);
 
@@ -58,7 +61,7 @@ describe('Testa o controller de produtos', () => {
 
     sinon
       .stub(productService, 'findById')
-      .resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+      .resolves(unhappyProductResponse);
 
     await productController.getProduct(req, res);
 
