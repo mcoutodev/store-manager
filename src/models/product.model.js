@@ -3,7 +3,7 @@ const connection = require('./connection');
 // Recupera lista de produtos, ordenando por id
 const findAll = async () => {
   const [products] = await connection.execute(
-    'SELECT * FROM products ORDER BY id'
+    'SELECT * FROM products ORDER BY id',
   );
   return products;
 };
