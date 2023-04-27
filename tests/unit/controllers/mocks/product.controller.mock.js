@@ -18,7 +18,7 @@ const validProduct = { "id": 1, "name": "Martelo de Thor" };
 const happyAllProductsResponse = { type: null, message: products };
 const happyProductResponse = { type: null, message: validProduct };
 const unhappyProductResponse = {
-  type: 'PRODUCT_NOT_FOUND',
+  type: 'NOT_FOUND',
   message: 'Product not found',
 };
 const newProduct = { "name": "Mjolnir" };

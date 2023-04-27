@@ -30,7 +30,7 @@ describe('Testa o serviço de produtos', function () {
   it('Recuperando um produto por um ID inválido', async function () {
     sinon.stub(productModel, 'findById').resolves(null);
     const result = await productService.findById(invalidId);
-    expect(result.type).to.be.equal('PRODUCT_NOT_FOUND');
+    expect(result.type).to.be.equal('NOT_FOUND');
     expect(result.message).to.be.equal('Product not found');
   });
 
