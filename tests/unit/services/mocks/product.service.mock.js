@@ -1,5 +1,7 @@
 const validId = 1;
+
 const invalidId = 999;
+
 const products = [
   {
     "id": 1,
@@ -14,8 +16,13 @@ const products = [
     "name": "Escudo do Capitão América"
   }
 ];
+
 const validProduct = { "id": 1, "name": "Martelo de Thor" };
+
 const newProduct = { "name": "Mjolnir" };
+
+const newInvalidProduct = { "name": "Mjol" };
+
 const newId = 4;
 
 module.exports = {
@@ -25,4 +32,5 @@ module.exports = {
   validProduct,
   newProduct,
   newId,
+  newInvalidProduct,
 };

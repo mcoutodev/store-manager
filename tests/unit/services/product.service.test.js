@@ -10,35 +10,53 @@ const {
   validProduct,
   newProduct,
   newId,
+  newInvalidProduct,
 } = require('./mocks/product.service.mock');
 
-describe('Testa o serviço de produtos', function () {
-  it('Recuperando a lista de produtos', async function () {
-    sinon.stub(productModel, 'findAll').resolves(products);
-    const result = await productService.findAll();
-    expect(result.type).to.be.equal(null);
-    expect(result.message).to.be.deep.equal(products);
+describe('Testa os services de produtos', function () {
+  describe('Recuperando a lista de produtos', function () {
+    it('com sucesso', async function () {
+      sinon.stub(productModel, 'findAll').resolves(products);
+      const result = await productService.findAll();
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal(products);
+    });
   });
 
-  it('Recuperando um produto pelo ID', async function () {
-    sinon.stub(productModel, 'findById').resolves(validProduct);
-    const result = await productService.findById(validId);
-    expect(result.type).to.be.equal(null);
-    expect(result.message).to.be.deep.equal(validProduct);
+  describe('Recuperando um produto pelo id', function () {
+    it('com sucesso', async function () {
+      sinon.stub(productModel, 'findById').resolves(validProduct);
+      const result = await productService.findById(validId);
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal(validProduct);
+    });
+
+    it('com um ID inválido', async function () {
+      const result = await productService.findById(invalidId);
+      expect(result.type).to.be.equal('NOT_FOUND');
+      expect(result.message).to.be.equal('Product not found');
+    });
   });
 
-  it('Recuperando um produto por um ID inválido', async function () {
-    sinon.stub(productModel, 'findById').resolves(null);
-    const result = await productService.findById(invalidId);
-    expect(result.type).to.be.equal('NOT_FOUND');
-    expect(result.message).to.be.equal('Product not found');
-  });
+  describe('Criando um novo produto', function () {
+    it('com sucesso', async function () {
+      sinon.stub(productModel, 'insert').resolves(newId);
+      const result = await productService.createProduct(newProduct);
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal({ ...newProduct, id: newId });
+    });
 
-  it('Criando um novo produto', async function () {
-    sinon.stub(productModel, 'insert').resolves(newId);
-    const result = await productService.createProduct(newProduct);
-    expect(result.type).to.be.equal(null);
-    expect(result.message).to.be.deep.equal({ ...newProduct, id: newId });
+    it('com um nome inválido', async function () {
+      const result = await productService.createProduct(newInvalidProduct);
+      expect(result.type).to.be.equal('INVALID_DATA');
+      expect(result.message).to.be.equal('"name" length must be at least 5 characters long');
+    });
+
+    it('sem um nome', async function () {
+      const result = await productService.createProduct({});
+      expect(result.type).to.be.equal('BAD_REQUEST');
+      expect(result.message).to.be.equal('"name" is required');
+    });
   });
 
   afterEach(function () {

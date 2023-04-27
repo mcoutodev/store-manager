@@ -1,5 +1,7 @@
 const validId = 1;
+
 const invalidId = 999;
+
 const products = [
   {
     "id": 1,
@@ -14,16 +16,35 @@ const products = [
     "name": "Escudo do Capitão América"
   }
 ];
+
 const validProduct = { "id": 1, "name": "Martelo de Thor" };
+
 const happyAllProductsResponse = { type: null, message: products };
+
 const happyProductResponse = { type: null, message: validProduct };
-const unhappyProductResponse = {
+
+const productResponseNotFound = {
   type: 'NOT_FOUND',
   message: 'Product not found',
 };
+
 const newProduct = { "name": "Mjolnir" };
+
 const newId = 4;
+
 const happyNewProductResponse = { type: null, message: { ...newProduct, id: newId } };
+
+const newInvalidProduct = { "name": "Mjol" };
+
+const newProductResponseWithInvalidName = {
+  type: 'INVALID_DATA',
+  message: '"name" length must be at least 5 characters long',
+};
+
+const newProductResponseWithoutName = {
+  type: 'BAD_REQUEST',
+  message: '"name" is required',
+};
 
 module.exports = {
   validId,
@@ -32,8 +53,11 @@ module.exports = {
   validProduct,
   happyAllProductsResponse,
   happyProductResponse,
-  unhappyProductResponse,
+  productResponseNotFound,
   newId,
   newProduct,
   happyNewProductResponse,
+  newInvalidProduct,
+  newProductResponseWithInvalidName,
+  newProductResponseWithoutName,
 };

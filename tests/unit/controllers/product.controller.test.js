@@ -12,81 +12,124 @@ const {
   validProduct,
   happyAllProductsResponse,
   happyProductResponse,
-  unhappyProductResponse,
+  productResponseNotFound,
   newId,
   newProduct,
   happyNewProductResponse,
+  newInvalidProduct,
+  newProductResponseWithInvalidName,
+  newProductResponseWithoutName,
 } = require('./mocks/product.controller.mock');
 
 chai.use(sinonChai);
 
-describe('Testa o controller de produtos', () => {
-  it('Deve retornar um array com todos os produtos', async () => {
-    const res = {};
-    const req = {};
+describe('Testa os controllers de produtos', () => {
+  describe('Recuperando a lista de produtos', () => {
+    it('com sucesso', async () => {
+      const res = {};
+      const req = {};
 
-    res.status = sinon.stub().returns(res);
-    res.json = sinon.stub().returns();
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
 
-    sinon
-      .stub(productService, 'findAll')
-      .resolves(happyAllProductsResponse);
+      sinon
+        .stub(productService, 'findAll')
+        .resolves(happyAllProductsResponse);
 
-    await productController.listProducts(req, res);
+      await productController.listProducts(req, res);
 
-    expect(res.status).to.have.been.calledWith(200);
-    expect(res.json).to.have.been.calledWith(products);
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(products);
+    });
   });
 
-  it('Deve retornar um produto com o id informado', async () => {
-    const res = {};
-    const req = { params: { id: validId } };
+  describe('Recuperando um produto pelo id', () => {
+    it('com sucesso', async () => {
+      const res = {};
+      const req = { params: { id: validId } };
 
-    res.status = sinon.stub().returns(res);
-    res.json = sinon.stub().returns();
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
 
-    sinon
-      .stub(productService, 'findById')
-      .resolves(happyProductResponse);
+      sinon
+        .stub(productService, 'findById')
+        .resolves(happyProductResponse);
 
-    await productController.getProduct(req, res);
+      await productController.getProduct(req, res);
 
-    expect(res.status).to.have.been.calledWith(200);
-    expect(res.json).to.have.been.calledWith(validProduct);
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(validProduct);
+    });
+
+    it('com id inválido', async () => {
+      const res = {};
+      const req = { params: { id: invalidId } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productService, 'findById')
+        .resolves(productResponseNotFound);
+
+      await productController.getProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+    });
   });
 
-  it('Deve retornar um erro caso o id informado não seja válido', async () => {
-    const res = {};
-    const req = { params: { id: invalidId } };
+  describe('Criando um novo produto', () => {
+    it('com sucesso', async () => {
+      const res = {};
+      const req = { body: newProduct };
 
-    res.status = sinon.stub().returns(res);
-    res.json = sinon.stub().returns();
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
 
-    sinon
-      .stub(productService, 'findById')
-      .resolves(unhappyProductResponse);
+      sinon
+        .stub(productService, 'createProduct')
+        .resolves(happyNewProductResponse);
 
-    await productController.getProduct(req, res);
+      await productController.createProduct(req, res);
 
-    expect(res.status).to.have.been.calledWith(404);
-    expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
-  });
+      expect(res.status).to.have.been.calledWith(201);
+      expect(res.json).to.have.been.calledWith({ ...newProduct, id: newId });
+    });
 
-  it('Deve criar um novo produto', async () => {
-    const res = {};
-    const req = { body: newProduct };
+    it('com um nome inválido', async () => {
+      const res = {};
+      const req = { body: newInvalidProduct };
 
-    res.status = sinon.stub().returns(res);
-    res.json = sinon.stub().returns();
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
 
-    sinon
-      .stub(productService, 'createProduct')
-      .resolves(happyNewProductResponse);
+      sinon
+        .stub(productService, 'createProduct')
+        .resolves(newProductResponseWithInvalidName);
 
-    await productController.createProduct(req, res);
+      await productController.createProduct(req, res);
 
-    expect(res.status).to.have.been.calledWith(201);
-    expect(res.json).to.have.been.calledWith({ ...newProduct, id: newId });
+      expect(res.status).to.have.been.calledWith(422);
+      expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long' });
+    });
+
+    it('sem um nome', async () => {
+      const res = {};
+      const req = { body: {} };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productService, 'createProduct')
+        .resolves(newProductResponseWithoutName);
+
+      await productController.createProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(400);
+      expect(res.json).to.have.been.calledWith({ message: '"name" is required' });
+    });
   });
 
   afterEach(function () {

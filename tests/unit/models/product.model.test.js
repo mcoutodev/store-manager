@@ -5,7 +5,7 @@ const connection = require('../../../src/models/connection');
 const { productModel } = require('../../../src/models');
 const { products, newProduct, insertId } = require('./mocks/product.model.mock');
 
-describe('Testa o modelo de produtos', function () {
+describe('Testa os models de produtos', function () {
   it('Recuperando a lista de produtos', async function () {
     sinon.stub(connection, 'execute').resolves([products]);
     const result = await productModel.findAll();
