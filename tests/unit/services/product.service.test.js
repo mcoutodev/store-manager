@@ -40,7 +40,7 @@ describe('Testa os services de produtos', function () {
 
   describe('Criando um novo produto', function () {
     it('com sucesso', async function () {
-      sinon.stub(productModel, 'insert').resolves(newId);
+      sinon.stub(productModel, 'insert').resolves({ ...newProduct, id: newId });
       const result = await productService.createProduct(newProduct);
       expect(result.type).to.be.equal(null);
       expect(result.message).to.be.deep.equal({ ...newProduct, id: newId });

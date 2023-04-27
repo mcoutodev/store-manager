@@ -21,7 +21,7 @@ describe('Testa os models de produtos', function () {
   it('Inserindo um novo produto', async function () {
     sinon.stub(connection, 'execute').resolves([{ insertId }]);
     const result = await productModel.insert(newProduct);
-    expect(result).to.be.equal(insertId);
+    expect(result).to.be.deep.equal({ ...newProduct, id: insertId });
   });
 
   afterEach(function () {

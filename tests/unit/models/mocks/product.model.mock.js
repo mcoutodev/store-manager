@@ -15,6 +15,10 @@ const products = [
 
 const newProduct = { name: 'Novo Produto' };
 
-const insertId = 1;
+const insertId = 4;
 
-module.exports = { products, newProduct, insertId };
+module.exports = {
+  products,
+  newProduct,
+  insertId,
+};
