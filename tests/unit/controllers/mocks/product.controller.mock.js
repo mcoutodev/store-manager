@@ -19,11 +19,11 @@ const products = [
 
 const validProduct = { "id": 1, "name": "Martelo de Thor" };
 
-const happyAllProductsResponse = { type: null, message: products };
+const allProductsResponse = { type: null, message: products };
 
-const happyProductResponse = { type: null, message: validProduct };
+const productResponse = { type: null, message: validProduct };
 
-const productResponseNotFound = {
+const productNotFound = {
   type: 'NOT_FOUND',
   message: 'Product not found',
 };
@@ -32,16 +32,16 @@ const newProduct = { "name": "Mjolnir" };
 
 const newId = 4;
 
-const happyNewProductResponse = { type: null, message: { ...newProduct, id: newId } };
+const newProductResponse = { type: null, message: { ...newProduct, id: newId } };
 
 const newInvalidProduct = { "name": "Mjol" };
 
-const newProductResponseWithInvalidName = {
+const responseWithInvalidName = {
   type: 'INVALID_DATA',
   message: '"name" length must be at least 5 characters long',
 };
 
-const newProductResponseWithoutName = {
+const responseWithoutName = {
   type: 'BAD_REQUEST',
   message: '"name" is required',
 };
@@ -51,13 +51,13 @@ module.exports = {
   invalidId,
   products,
   validProduct,
-  happyAllProductsResponse,
-  happyProductResponse,
-  productResponseNotFound,
   newId,
   newProduct,
-  happyNewProductResponse,
   newInvalidProduct,
-  newProductResponseWithInvalidName,
-  newProductResponseWithoutName,
+  allProductsResponse,
+  productResponse,
+  productNotFound,
+  newProductResponse,
+  responseWithInvalidName,
+  responseWithoutName,
 };

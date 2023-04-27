@@ -10,15 +10,15 @@ const {
   invalidId,
   products,
   validProduct,
-  happyAllProductsResponse,
-  happyProductResponse,
-  productResponseNotFound,
   newId,
   newProduct,
-  happyNewProductResponse,
   newInvalidProduct,
-  newProductResponseWithInvalidName,
-  newProductResponseWithoutName,
+  allProductsResponse,
+  productResponse,
+  productNotFound,
+  newProductResponse,
+  responseWithInvalidName,
+  responseWithoutName,
 } = require('./mocks/product.controller.mock');
 
 chai.use(sinonChai);
@@ -34,7 +34,7 @@ describe('Testa os controllers de produtos', () => {
 
       sinon
         .stub(productService, 'findAll')
-        .resolves(happyAllProductsResponse);
+        .resolves(allProductsResponse);
 
       await productController.listProducts(req, res);
 
@@ -53,7 +53,7 @@ describe('Testa os controllers de produtos', () => {
 
       sinon
         .stub(productService, 'findById')
-        .resolves(happyProductResponse);
+        .resolves(productResponse);
 
       await productController.getProduct(req, res);
 
@@ -70,7 +70,7 @@ describe('Testa os controllers de produtos', () => {
 
       sinon
         .stub(productService, 'findById')
-        .resolves(productResponseNotFound);
+        .resolves(productNotFound);
 
       await productController.getProduct(req, res);
 
@@ -89,7 +89,7 @@ describe('Testa os controllers de produtos', () => {
 
       sinon
         .stub(productService, 'createProduct')
-        .resolves(happyNewProductResponse);
+        .resolves(newProductResponse);
 
       await productController.createProduct(req, res);
 
@@ -106,7 +106,7 @@ describe('Testa os controllers de produtos', () => {
 
       sinon
         .stub(productService, 'createProduct')
-        .resolves(newProductResponseWithInvalidName);
+        .resolves(responseWithInvalidName);
 
       await productController.createProduct(req, res);
 
@@ -123,7 +123,7 @@ describe('Testa os controllers de produtos', () => {
 
       sinon
         .stub(productService, 'createProduct')
-        .resolves(newProductResponseWithoutName);
+        .resolves(responseWithoutName);
 
       await productController.createProduct(req, res);
 
