@@ -21,6 +21,9 @@ const unhappyProductResponse = {
   type: 'PRODUCT_NOT_FOUND',
   message: 'Product not found',
 };
+const newProduct = { "name": "Mjolnir" };
+const newId = 4;
+const happyNewProductResponse = { type: null, message: { ...newProduct, id: newId } };
 
 module.exports = {
   validId,
@@ -30,4 +33,7 @@ module.exports = {
   happyAllProductsResponse,
   happyProductResponse,
   unhappyProductResponse,
+  newId,
+  newProduct,
+  happyNewProductResponse,
 };
