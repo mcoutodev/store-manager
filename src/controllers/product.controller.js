@@ -23,4 +23,8 @@ const createProduct = async (req, res) => {
   res.status(201).json(message);
 };
 
-module.exports = { listProducts, getProduct, createProduct };
+module.exports = {
+  listProducts,
+  getProduct,
+  createProduct,
+};

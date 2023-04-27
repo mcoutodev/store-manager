@@ -22,7 +22,11 @@ const insert = async (product) => {
     'INSERT INTO products (name) VALUES (?)',
     [product.name],
   );
-  return insertId;
+  return { ...product, id: insertId };
 };
 
-module.exports = { findAll, findById, insert };
+module.exports = {
+  findAll,
+  findById,
+  insert,
+};
