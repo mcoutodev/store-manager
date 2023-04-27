@@ -75,7 +75,7 @@ describe('Testa os controllers de produtos', () => {
       await productController.getProduct(req, res);
 
       expect(res.status).to.have.been.calledWith(404);
-      expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+      expect(res.json).to.have.been.calledWith({ message: productNotFound.message });
     });
   });
 
@@ -111,7 +111,7 @@ describe('Testa os controllers de produtos', () => {
       await productController.createProduct(req, res);
 
       expect(res.status).to.have.been.calledWith(422);
-      expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long' });
+      expect(res.json).to.have.been.calledWith({ message: responseWithInvalidName.message });
     });
 
     it('sem um nome', async () => {
@@ -128,7 +128,7 @@ describe('Testa os controllers de produtos', () => {
       await productController.createProduct(req, res);
 
       expect(res.status).to.have.been.calledWith(400);
-      expect(res.json).to.have.been.calledWith({ message: '"name" is required' });
+      expect(res.json).to.have.been.calledWith({ message: responseWithoutName.message });
     });
   });
 
