@@ -1,19 +1,30 @@
-const { productSchema } = require('./schemas');
+const { mapError } = require('../../utils/errorList');
+const {
+  productSchema,
+  saleSchema,
+} = require('./schemas');
 
-const validateName = (product) => {
-  if (!product.name) return { type: 'BAD_REQUEST', message: '"name" is required' };
-
+const validateProduct = (product) => {
   const { error } = productSchema.validate(product);
 
   if (error) {
-    return {
-      type: 'INVALID_DATA',
-      message: '"name" length must be at least 5 characters long',
-    };
+    const { type } = error.details[0];
+    return { type: mapError(type), message: error.message };
+  }
+  return { type: null, message: '' };
+};
+
+const validateSale = (products) => {
+  const { error } = saleSchema.validate(products);
+
+  if (error) {
+    const { type } = error.details[0];
+    return { type: mapError(type), message: error.message };
   }
   return { type: null, message: '' };
 };
 
 module.exports = {
-  validateName,
+  validateProduct,
+  validateSale,
 };
