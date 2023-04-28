@@ -80,6 +80,11 @@ const salesFound = [
 
 const salesResponse = { type: null, message: salesFound };
 
+const saleNotFound = {
+  type: 'NOT_FOUND',
+  message: 'Sale not found',
+};
+
 module.exports = {
   insertId,
   saleProducts,
@@ -95,4 +100,5 @@ module.exports = {
   saleResponse,
   salesFound,
   salesResponse,
+  saleNotFound,
 };

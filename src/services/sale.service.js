@@ -27,6 +27,10 @@ const createSale = async (saleProducts) => {
 
 const findById = async (saleId) => {
   const saleProducts = await saleModel.findById(saleId);
+
+  if (!saleProducts.length) {
+    return { type: 'NOT_FOUND', message: 'Sale not found' };
+  }
   return { type: null, message: saleProducts };
 };
 

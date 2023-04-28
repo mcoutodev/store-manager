@@ -58,6 +58,12 @@ describe('Testa os services de vendas', function () {
       expect(result.type).to.be.equal(null);
       expect(result.message).to.be.deep.equal(saleFound);
     });
+
+    it('com um ID inválido', async function () {
+      const result = await saleService.findById(999);
+      expect(result.type).to.be.equal('NOT_FOUND');
+      expect(result.message).to.be.equal('Sale not found');
+    });
   });
 
   describe('Recuperando todas as vendas', function () {

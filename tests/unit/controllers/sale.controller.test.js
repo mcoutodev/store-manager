@@ -18,6 +18,7 @@ const {
   saleFound,
   salesResponse,
   salesFound,
+  saleNotFound,
 } = require('./mocks/sale.controller.mock');
 
 chai.use(sinonChai);
@@ -122,11 +123,28 @@ describe('Testa os controllers de vendas', () => {
         .stub(saleService, 'findById')
         .resolves(saleResponse);
 
-      await saleController.findSale(req, res);
+      await saleController.getSale(req, res);
 
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(saleFound);
-    })
+    });
+
+    it('com id inválido', async () => {
+      const res = {};
+      const req = { params: { id: 999 } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(saleService, 'findById')
+        .resolves(saleNotFound);
+
+      await saleController.getSale(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: saleNotFound.message });
+    });
   })
 
   describe('Recuperando todas as vendas', function () {
