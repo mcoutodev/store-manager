@@ -27,7 +27,7 @@ describe('Testa os models de vendas', function () {
   });
 
   it('Recuperando uma venda pelo ID', async function () {
-    sinon.stub(connection, 'execute').resolves([[saleFoundDB]]);
+    sinon.stub(connection, 'execute').resolves([saleFoundDB]);
     const result = await saleModel.findById(1);
     expect(result).to.be.deep.equal(saleFound);
   });
