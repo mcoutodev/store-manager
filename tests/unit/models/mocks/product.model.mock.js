@@ -17,8 +17,14 @@ const newProduct = { name: 'Novo Produto' };
 
 const insertId = 4;
 
+const dataToUpdate = { name: 'Martelo do Batman ' };
+
+const updatedProduct = { id: 1, ...dataToUpdate };
+
 module.exports = {
   products,
   newProduct,
   insertId,
+  dataToUpdate,
+  updatedProduct,
 };

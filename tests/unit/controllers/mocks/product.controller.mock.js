@@ -49,6 +49,13 @@ const responseWithoutName = {
   message: '"name" is required',
 };
 
+const updatedProduct = { id: 1, name: 'Martelo do Batman' };
+
+const updateResponse = {
+  type: null,
+  message: updatedProduct,
+};
+
 module.exports = {
   validId,
   invalidId,
@@ -63,4 +70,6 @@ module.exports = {
   newProductResponse,
   responseWithInvalidName,
   responseWithoutName,
+  updateResponse,
+  updatedProduct,
 };

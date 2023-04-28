@@ -11,6 +11,8 @@ const {
   newProduct,
   newId,
   newInvalidProduct,
+  dataToUpdate,
+  updatedProduct,
 } = require('./mocks/product.service.mock');
 
 describe('Testa os services de produtos', function () {
@@ -56,6 +58,15 @@ describe('Testa os services de produtos', function () {
       const result = await productService.createProduct({});
       expect(result.type).to.be.equal('BAD_REQUEST');
       expect(result.message).to.be.equal('"name" is required');
+    });
+  });
+
+  describe('Atualizando um produto', function () {
+    it('com sucesso', async function () {
+      sinon.stub(productModel, 'update').resolves(updatedProduct);
+      const result = await productService.updateProduct(1, dataToUpdate);
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal(updatedProduct);
     });
   });
 

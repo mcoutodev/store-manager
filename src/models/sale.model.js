@@ -18,7 +18,6 @@ const insert = async (saleProducts) => {
     VALUES ${placeholders}`,
     [...values],
   );
-
   return { id: insertId, itemsSold: saleProducts };
 };
 

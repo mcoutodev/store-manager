@@ -25,6 +25,10 @@ const newInvalidProduct = { name: 'Mjol' };
 
 const newId = 4;
 
+const dataToUpdate = { message: 'Martelo do Batman' };
+
+const updatedProduct = { id: 1, name: 'Martelo do Batman' };
+
 module.exports = {
   validId,
   invalidId,
@@ -33,4 +37,6 @@ module.exports = {
   newProduct,
   newId,
   newInvalidProduct,
+  dataToUpdate,
+  updatedProduct,
 };

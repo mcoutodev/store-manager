@@ -19,6 +19,8 @@ const {
   newProductResponse,
   responseWithInvalidName,
   responseWithoutName,
+  updateResponse,
+  updatedProduct,
 } = require('./mocks/product.controller.mock');
 
 chai.use(sinonChai);
@@ -129,6 +131,25 @@ describe('Testa os controllers de produtos', () => {
 
       expect(res.status).to.have.been.calledWith(400);
       expect(res.json).to.have.been.calledWith({ message: responseWithoutName.message });
+    });
+  });
+
+  describe('Atualizando um produto', function () {
+    it('com sucesso', async function () {
+      const res = {};
+      const req = { params: { id: 1 } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productService, 'updateProduct')
+        .resolves(updateResponse);
+
+      await productController.updateProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(updatedProduct);
     });
   });
 
