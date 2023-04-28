@@ -30,7 +30,13 @@ const findById = async (saleId) => {
   return { type: null, message: saleProducts };
 };
 
+const findAll = async () => {
+  const sales = await saleModel.findAll();
+  return { type: null, message: sales };
+};
+
 module.exports = {
   createSale,
   findById,
+  findAll,
 };

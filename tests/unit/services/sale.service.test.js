@@ -8,6 +8,7 @@ const {
   saleProducts,
   invalidSaleProducts,
   saleFound,
+  salesFound,
 } = require('./mocks/sale.service.mock');
 
 describe('Testa os services de vendas', function () {
@@ -56,6 +57,15 @@ describe('Testa os services de vendas', function () {
       const result = await saleService.findById(saleFound);
       expect(result.type).to.be.equal(null);
       expect(result.message).to.be.deep.equal(saleFound);
+    });
+  });
+
+  describe('Recuperando todas as vendas', function () {
+    it('com sucesso', async function () {
+      sinon.stub(saleModel, 'findAll').resolves(salesFound);
+      const result = await saleService.findAll(salesFound);
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal(salesFound);
     });
   });
 

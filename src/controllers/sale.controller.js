@@ -15,7 +15,13 @@ const findSale = async (req, res) => {
   res.status(200).json(message);
 };
 
+const listSales = async (_req, res) => {
+  const { type, message } = await saleService.findAll();
+  res.status(200).json(message);
+};
+
 module.exports = {
   createSale,
   findSale,
+  listSales,
 };
