@@ -6,7 +6,6 @@ const { saleModel } = require('../../../src/models');
 const {
   newSale,
   saleProducts,
-  invalidId,
   invalidSaleProducts,
 } = require('./mocks/sale.service.mock');
 
