@@ -68,6 +68,12 @@ describe('Testa os services de produtos', function () {
       expect(result.type).to.be.equal(null);
       expect(result.message).to.be.deep.equal(updatedProduct);
     });
+
+    it('com um ID inválido', async function () {
+      const result = await productService.updateProduct(invalidId, dataToUpdate);
+      expect(result.type).to.be.equal('NOT_FOUND');
+      expect(result.message).to.be.equal('Product not found');
+    });
   });
 
   afterEach(function () {

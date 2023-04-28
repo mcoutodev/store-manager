@@ -22,6 +22,7 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { type, message } = await productService.updateProduct(id, req.body);
+  if (type) return res.status(errorMap.mapError(type)).json({ message });
   res.status(200).json(message);
 };
 
