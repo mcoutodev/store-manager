@@ -4,20 +4,20 @@ const invalidId = 999;
 
 const products = [
   {
-    "id": 1,
-    "name": "Martelo de Thor"
+    id: 1,
+    name: 'Martelo de Thor',
   },
   {
-    "id": 2,
-    "name": "Traje de encolhimento"
+    id: 2,
+    name: 'Traje de encolhimento',
   },
   {
-    "id": 3,
-    "name": "Escudo do Capitão América"
+    id: 3,
+    name: 'Escudo do Capitão América',
   }
 ];
 
-const validProduct = { "id": 1, "name": "Martelo de Thor" };
+const validProduct = { id: 1, name: 'Martelo de Thor' };
 
 const allProductsResponse = { type: null, message: products };
 
@@ -28,13 +28,16 @@ const productNotFound = {
   message: 'Product not found',
 };
 
-const newProduct = { "name": "Mjolnir" };
+const newProduct = { name: 'Mjolnir' };
 
 const newId = 4;
 
-const newProductResponse = { type: null, message: { ...newProduct, id: newId } };
+const newProductResponse = {
+  type: null,
+  message: { ...newProduct, id: newId },
+};
 
-const newInvalidProduct = { "name": "Mjol" };
+const newInvalidProduct = { name: 'Mjol' };
 
 const responseWithInvalidName = {
   type: 'INVALID_DATA',

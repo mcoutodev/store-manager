@@ -12,8 +12,8 @@ const saleProducts = [
 ];
 
 const newSale = {
-  "id": insertId,
-  "itemsSold": saleProducts,
+  id: insertId,
+  itemsSold: saleProducts,
 };
 
 const invalidId = 999;
