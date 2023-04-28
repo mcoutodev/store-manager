@@ -21,7 +21,6 @@ const createSale = async (saleProducts) => {
   if (!await productsExists(saleProducts)) {
     return { type: 'NOT_FOUND', message: 'Product not found' };
   }
-
   const newSale = await saleModel.insert(saleProducts);
   return { type: null, message: newSale };
 };

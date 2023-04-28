@@ -5,15 +5,19 @@ const insert = async (saleProducts) => {
     'INSERT INTO sales (date) VALUES (DEFAULT)',
   );
 
-  saleProducts.forEach(async (product) => {
-    await connection.execute(
-      `INSERT INTO sales_products 
-      (sale_id, product_id, quantity)
-      VALUES
-      (?, ?, ?)`,
-      [insertId, product.productId, product.quantity],
-    );
-  });
+  const placeholders = saleProducts
+    .map((_el) => ('(?, ?, ?)'))
+    .join(', ');
+
+  const values = saleProducts
+    .map(({ productId, quantity }) => [insertId, productId, quantity])
+    .flat();
+
+  await connection.execute(
+    `INSERT INTO sales_products (sale_id, product_id, quantity)
+    VALUES ${placeholders}`,
+    [...values],
+  );
 
   return { id: insertId, itemsSold: saleProducts };
 };
