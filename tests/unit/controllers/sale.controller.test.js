@@ -16,6 +16,8 @@ const {
   responseWithoutQuantity,
   saleResponse,
   saleFound,
+  salesResponse,
+  salesFound,
 } = require('./mocks/sale.controller.mock');
 
 chai.use(sinonChai);
@@ -108,7 +110,7 @@ describe('Testa os controllers de vendas', () => {
     });
   });
 
-  describe('Recuperando um produto pelo ID', function () {
+  describe('Recuperando uma venda pelo ID', function () {
     it('com sucesso', async function () {
       const res = {};
       const req = { params: { id: 1 } };
@@ -124,6 +126,25 @@ describe('Testa os controllers de vendas', () => {
 
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(saleFound);
+    })
+  })
+
+  describe('Recuperando todas as vendas', function () {
+    it('com sucesso', async function () {
+      const res = {};
+      const req = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(saleService, 'findAll')
+        .resolves(salesResponse);
+
+      await saleController.listSales(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(salesFound);
     })
   })
 
