@@ -7,6 +7,7 @@ const {
   newSale,
   saleProducts,
   invalidSaleProducts,
+  saleFound,
 } = require('./mocks/sale.service.mock');
 
 describe('Testa os services de vendas', function () {
@@ -46,6 +47,15 @@ describe('Testa os services de vendas', function () {
       const result = await saleService.createSale(invalidSaleProducts);
       expect(result.type).to.be.equal('NOT_FOUND');
       expect(result.message).to.be.equal('Product not found');
+    });
+  });
+
+  describe('Recuperando uma venda pelo ID', function () {
+    it('com sucesso', async function () {
+      sinon.stub(saleModel, 'findById').resolves(saleFound);
+      const result = await saleService.findById(saleFound);
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal(saleFound);
     });
   });
 
