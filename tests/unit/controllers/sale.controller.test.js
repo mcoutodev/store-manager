@@ -9,12 +9,13 @@ const {
   newSale,
   saleProducts,
   newSaleResponse,
-  invalidId,
   invalidSaleProducts,
   productNotFound,
   invalidQuantity,
   responseWithoutId,
   responseWithoutQuantity,
+  saleResponse,
+  saleFound,
 } = require('./mocks/sale.controller.mock');
 
 chai.use(sinonChai);
@@ -106,6 +107,25 @@ describe('Testa os controllers de vendas', () => {
       expect(res.json).to.have.been.calledWith({ message: responseWithoutQuantity.message });
     });
   });
+
+  describe('Recuperando um produto pelo ID', function () {
+    it('com sucesso', async function () {
+      const res = {};
+      const req = { params: { id: 1 } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(saleService, 'findById')
+        .resolves(saleResponse);
+
+      await saleController.findSale(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(saleFound);
+    })
+  })
 
   afterEach(function () {
     sinon.restore();
