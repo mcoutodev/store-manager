@@ -33,6 +33,9 @@ const updateProduct = async (productId, dataToUpdate) => {
   if (!await findProduct(productId)) {
     return { type: 'NOT_FOUND', message: 'Product not found' };
   }
+  const error = schema.validateProduct(dataToUpdate);
+  if (error.type) return error;
+
   const updatedProduct = await productModel.update(productId, dataToUpdate);
   return { type: null, message: updatedProduct };
 };

@@ -25,7 +25,7 @@ const newInvalidProduct = { name: 'Mjol' };
 
 const newId = 4;
 
-const dataToUpdate = { message: 'Martelo do Batman' };
+const dataToUpdate = { name: 'Martelo do Batman' };
 
 const updatedProduct = { id: 1, name: 'Martelo do Batman' };
 

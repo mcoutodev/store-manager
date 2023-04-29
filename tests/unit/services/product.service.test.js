@@ -74,6 +74,18 @@ describe('Testa os services de produtos', function () {
       expect(result.type).to.be.equal('NOT_FOUND');
       expect(result.message).to.be.equal('Product not found');
     });
+
+    it('com um nome inválido', async function () {
+      const result = await productService.updateProduct(1, newInvalidProduct);
+      expect(result.type).to.be.equal('INVALID_DATA');
+      expect(result.message).to.be.equal('"name" length must be at least 5 characters long');
+    });
+
+    it('sem um nome', async function () {
+      const result = await productService.updateProduct(1, {});
+      expect(result.type).to.be.equal('BAD_REQUEST');
+      expect(result.message).to.be.equal('"name" is required');
+    });
   });
 
   afterEach(function () {
