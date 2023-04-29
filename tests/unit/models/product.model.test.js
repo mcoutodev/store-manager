@@ -8,7 +8,7 @@ const {
   newProduct,
   insertId,
   updatedProduct,
-  dataToUpdate
+  dataToUpdate,
 } = require('./mocks/product.model.mock');
 
 describe('Testa os models de produtos', function () {
@@ -34,6 +34,12 @@ describe('Testa os models de produtos', function () {
     const result = await productModel.update(1, dataToUpdate);
     sinon.stub(connection, 'execute').resolves(updatedProduct);
     expect(result).to.be.deep.equal(updatedProduct);
+  });
+
+  it('Deleta um produto', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    const result = await productModel.deleteProduct(1);
+    expect(result).to.be.equal(1);
   });
 
   afterEach(function () {

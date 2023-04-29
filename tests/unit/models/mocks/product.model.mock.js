@@ -10,7 +10,7 @@ const products = [
   {
     id: 3,
     name: 'Escudo do Capitão América',
-  }
+  },
 ];
 
 const newProduct = { name: 'Novo Produto' };

@@ -21,6 +21,7 @@ const {
   responseWithoutName,
   updateResponse,
   updatedProduct,
+  deleteResponse,
 } = require('./mocks/product.controller.mock');
 
 chai.use(sinonChai);
@@ -164,6 +165,41 @@ describe('Testa os controllers de produtos', () => {
         .resolves(productNotFound);
 
       await productController.updateProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: productNotFound.message });
+    });
+  });
+
+  describe('Excluindo um produto', function () {
+    it('com sucesso', async function () {
+      const res = {};
+      const req = { params: { id: 1 } };
+
+      res.status = sinon.stub().returns(res);
+      res.end = sinon.stub().returns();
+
+      sinon
+        .stub(productService, 'deleteProduct')
+        .resolves(deleteResponse);
+
+      await productController.deleteProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(204);
+    });
+
+    it('com id inválido', async () => {
+      const res = {};
+      const req = { params: { id: invalidId } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productService, 'deleteProduct')
+        .resolves(productNotFound);
+
+      await productController.deleteProduct(req, res);
 
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({ message: productNotFound.message });

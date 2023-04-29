@@ -88,6 +88,21 @@ describe('Testa os services de produtos', function () {
     });
   });
 
+  describe('Excluindo um produto', function () {
+    it('com sucesso', async function () {
+      sinon.stub(productModel, 'deleteProduct').resolves(1);
+      const result = await productService.deleteProduct(1);
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.equal(1);
+    });
+
+    it('com um ID inválido', async function () {
+      const result = await productService.deleteProduct(invalidId);
+      expect(result.type).to.be.equal('NOT_FOUND');
+      expect(result.message).to.be.equal('Product not found');
+    });
+  });
+
   afterEach(function () {
     sinon.restore();
   });

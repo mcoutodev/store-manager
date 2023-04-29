@@ -56,6 +56,11 @@ const updateResponse = {
   message: updatedProduct,
 };
 
+const deleteResponse = {
+  type: null,
+  message: '',
+};
+
 module.exports = {
   validId,
   invalidId,
@@ -72,4 +77,5 @@ module.exports = {
   responseWithoutName,
   updateResponse,
   updatedProduct,
+  deleteResponse,
 };
