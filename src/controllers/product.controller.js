@@ -1,6 +1,9 @@
 const { productService } = require('../services');
 const errorMap = require('../utils/errorMap');
 
+// Recebe as requisicoes e envia as respostas
+// Todas as funcoes recebem dois parametros: req (requisicao) e res (resposta)
+// A funcao listProducts nao recebe parametros, pois retorna todos os produtos
 const listProducts = async (_req, res) => {
   const { message } = await productService.findAll();
   res.status(200).json(message);

@@ -1,6 +1,8 @@
 const { productModel } = require('../models');
 const schema = require('./validations/validateInputs');
 
+// Funções que fazem a conexão entre o model e os controllers.
+// Retornan um objeto contendo o tipo e a mensagem do erro, caso exista.
 const findAll = async () => {
   const products = await productModel.findAll();
   return { type: null, message: products };
@@ -23,6 +25,7 @@ const createProduct = async (product) => {
   return { type: null, message: newProduct };
 };
 
+// Verifica a existência do produto antes de atualizá-lo ou excluí-lo.
 const findProduct = async (productId) => {
   const product = await productModel.findById(productId);
   if (product) return true;

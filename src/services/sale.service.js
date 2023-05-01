@@ -7,6 +7,10 @@ const findProduct = async (productId) => {
   return false;
 };
 
+// Verifica se todos os produtos existem antes de criar a venda.
+// Utiliza o método every para verificar se todos os produtos existem.
+// O método Promise.all recebe um array de promises 
+// e retorna um array com os resultados.
 const productsExists = async (saleProducts) => {
   const allProducts = saleProducts
     .map(({ productId }) => findProduct(productId));

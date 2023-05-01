@@ -3,6 +3,7 @@ const { productController } = require('../controllers');
 
 const router = express.Router();
 
+// Endpoints para o CRUD de produtos
 router.get('/', productController.listProducts);
 
 router.post('/', productController.createProduct);

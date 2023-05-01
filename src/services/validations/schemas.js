@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+// Valida a requisição de criação/atualização de um produto
 const productSchema = Joi.object({
   name: Joi
     .string()
@@ -13,6 +14,7 @@ const productSchema = Joi.object({
     ),
 });
 
+// Valida a requisição de criação/atualização de uma venda
 const saleProductSchema = Joi.object({
   productId: Joi
     .number()

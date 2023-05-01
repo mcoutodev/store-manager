@@ -4,6 +4,8 @@ const {
   saleSchema,
 } = require('./schemas');
 
+// Funções que validam os dados de entrada.
+// Retorna um objeto com o tipo e a mensagem do erro, caso exista.
 const validateProduct = (product) => {
   const { error } = productSchema.validate(product);
 

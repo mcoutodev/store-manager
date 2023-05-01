@@ -17,6 +17,7 @@ const findById = async (productId) => {
   return product;
 };
 
+// Cria um novo produto
 const insert = async (product) => {
   const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.products (name) VALUES (?)',
@@ -25,6 +26,7 @@ const insert = async (product) => {
   return { ...product, id: insertId };
 };
 
+// Atualiza um produto
 const update = async (productId, dataToUpdate) => {
   await connection.execute(
     'UPDATE StoreManager.products SET name = ? WHERE id = ?',
@@ -33,6 +35,7 @@ const update = async (productId, dataToUpdate) => {
   return findById(productId);
 };
 
+// Exclui um produto, retornando a quantidade de linhas afetadas pela query
 const deleteProduct = async (productId) => {
   const [{ affectedRows }] = await connection.execute(
     'DELETE FROM StoreManager.products WHERE id = ?',

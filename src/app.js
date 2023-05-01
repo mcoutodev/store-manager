@@ -6,8 +6,10 @@ const app = express();
 
 app.use(express.json());
 
+// Uso das rotas definidas no arquivo productRouter.js
 app.use('/products', productRouter);
 
+// Uso das rotas definidas no arquivo saleRouter.js
 app.use('/sales', saleRouter);
 
 // não remova esse endpoint, é para o avaliador funcionar

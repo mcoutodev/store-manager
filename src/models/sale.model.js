@@ -5,10 +5,15 @@ const insert = async (saleProducts) => {
     'INSERT INTO StoreManager.sales (date) VALUES (DEFAULT)',
   );
 
+  // Retorna um conjunto de placeholders, um para cada produto.
   const placeholders = saleProducts
     .map((_product) => ('(?, ?, ?)'))
     .join(', ');
 
+  // Retorna um array com os valores de cada produto.
+  // O método flat() "desenrola" o array de arrays em um array simples.
+  // O array de arrays é necessário para que o método map() possa retornar
+  // um array com o mesmo número de elementos do array original.
   const values = saleProducts
     .map(({ productId, quantity }) => [insertId, productId, quantity])
     .flat();
@@ -21,6 +26,9 @@ const insert = async (saleProducts) => {
   return { id: insertId, itemsSold: saleProducts };
 };
 
+// Recupera lista de vendas, ordenando por id
+// Faz um join entre as tabelas sales e sales_products
+// para recuperar os dados de cada produto vendido.
 const findAll = async () => {
   const [sales] = await connection.execute(
     `SELECT * FROM StoreManager.sales_products as p 
@@ -35,6 +43,8 @@ const findAll = async () => {
   }));
 };
 
+// Recupera informações sobre uma venda, usando o id como parâmetro de busca
+// Faz um join entre as tabelas sales e sales_products
 const findById = async (saleId) => {
   const [saleProducts] = await connection.execute(
     `SELECT p.product_id, p.quantity, s.date
