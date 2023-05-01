@@ -11,6 +11,8 @@ const {
   saleFoundDB,
   salesFound,
   salesFoundDB,
+  updatedSale,
+  dataToUpdate,
 } = require('./mocks/sale.model.mock');
 
 describe('Testa os models de vendas', function () {
@@ -42,6 +44,12 @@ describe('Testa os models de vendas', function () {
     sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
     const result = await saleModel.deleteSale(1);
     expect(result).to.be.deep.equal(1);
+  });
+
+  it('Atualizando uma venda', async function () {
+    const result = await saleModel.update(1, dataToUpdate);
+    sinon.stub(connection, 'execute').resolves(updatedSale);
+    expect(result).to.be.deep.equal(updatedSale);
   });
 
   afterEach(function () {

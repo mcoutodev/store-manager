@@ -68,9 +68,27 @@ const deleteSale = async (saleId) => {
   return affectedRows;
 };
 
+const update = async (saleId, dataToUpdate) => {
+  const placeholders = dataToUpdate
+    .map((_product) => 'WHEN product_id = ? THEN ?')
+    .join(' ');
+
+  const values = dataToUpdate
+    .map(({ productId, quantity }) => [productId, quantity])
+    .flat();
+
+  await connection.execute(
+    `UPDATE sales_products SET quantity = (CASE ${placeholders} END)
+    WHERE sale_id = ?`,
+    [...values, saleId],
+  );
+  return { saleId, itemsUpdated: dataToUpdate };
+};
+
 module.exports = {
   insert,
   findAll,
   findById,
   deleteSale,
+  update,
 };

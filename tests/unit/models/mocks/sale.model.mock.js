@@ -3,7 +3,7 @@ const insertId = 3;
 const saleProducts = [
   {
     productId: 1,
-    qusaleFoundDB: 2,
+    quantity: 2,
   },
   {
     productId: 2,
@@ -72,6 +72,22 @@ const salesFoundDB = [
   },
 ];
 
+const dataToUpdate = [
+  {
+    productId: 1,
+    quantity: 20,
+  },
+  {
+    productId: 2,
+    quantity: 30,
+  },
+];
+
+const updatedSale = {
+  saleId: 1,
+  itemsUpdated: dataToUpdate,
+};
+
 module.exports = {
   saleProducts,
   newSale,
@@ -80,4 +96,6 @@ module.exports = {
   saleFoundDB,
   salesFound,
   salesFoundDB,
+  dataToUpdate,
+  updatedSale,
 };

@@ -54,6 +54,64 @@ const salesFound = [
   },
 ];
 
+const dataToUpdate = [
+  {
+    productId: 1,
+    quantity: 20,
+  },
+  {
+    productId: 2,
+    quantity: 30,
+  },
+];
+
+const updatedSale = {
+  id: 1,
+  itemsUpdated: dataToUpdate,
+};
+
+const invalidData = [
+  {
+    productId: 1,
+    quantity: 0,
+  },
+  {
+    productId: 2,
+    quantity: 30,
+  },
+];
+
+const dataWithoutId = [
+  {
+    quantity: 20,
+  },
+  {
+    productId: 2,
+    quantity: 30,
+  },
+];
+
+const dataWithoutQuantity = [
+  {
+    productId: 1,
+  },
+  {
+    productId: 2,
+    quantity: 30,
+  },
+];
+
+const dataWithInvalidProduct = [
+  {
+    productId: invalidId,
+    quantity: 20,
+  },
+  {
+    productId: 2,
+    quantity: 30,
+  },
+];
+
 module.exports = {
   insertId,
   saleProducts,
@@ -62,4 +120,10 @@ module.exports = {
   invalidId,
   saleFound,
   salesFound,
+  dataToUpdate,
+  updatedSale,
+  dataWithoutId,
+  invalidData,
+  dataWithoutQuantity,
+  dataWithInvalidProduct,
 };

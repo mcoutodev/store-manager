@@ -90,6 +90,38 @@ const deleteResponse = {
   message: '',
 };
 
+const dataToUpdate = [
+  {
+    productId: 1,
+    quantity: 20,
+  },
+  {
+    productId: 2,
+    quantity: 30,
+  },
+];
+
+const updatedSale = {
+  saleId: 1,
+  itemsUpdated: dataToUpdate,
+};
+
+const updateResponse = {
+  type: null,
+  message: updatedSale,
+};
+
+const dataWithInvalidId = [
+  {
+    productId: invalidId,
+    quantity: 20,
+  },
+  {
+    productId: 2,
+    quantity: 30,
+  },
+];
+
 module.exports = {
   insertId,
   saleProducts,
@@ -107,4 +139,8 @@ module.exports = {
   salesResponse,
   saleNotFound,
   deleteResponse,
+  dataToUpdate,
+  updatedSale,
+  updateResponse,
+  dataWithInvalidId,
 };

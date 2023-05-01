@@ -58,9 +58,24 @@ const deleteSale = async (saleId) => {
   return { type: null, message: affectedRows };
 };
 
+const updateSale = async (saleId, dataToUpdate) => {
+  if (!await findSale(saleId)) {
+    return { type: 'NOT_FOUND', message: 'Sale not found' };
+  }
+  const error = schema.validateSale(dataToUpdate);
+  if (error.type) return error;
+
+  if (!await productsExists(dataToUpdate)) {
+    return { type: 'NOT_FOUND', message: 'Product not found' };
+  }
+  const updatedSale = await saleModel.update(saleId, dataToUpdate);
+  return { type: null, message: updatedSale };
+};
+
 module.exports = {
   createSale,
   findById,
   findAll,
   deleteSale,
+  updateSale,
 };

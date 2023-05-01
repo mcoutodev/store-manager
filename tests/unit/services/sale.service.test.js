@@ -9,6 +9,12 @@ const {
   invalidSaleProducts,
   saleFound,
   salesFound,
+  updatedSale,
+  dataToUpdate,
+  invalidData,
+  dataWithoutId,
+  dataWithoutQuantity,
+  dataWithInvalidProduct,
 } = require('./mocks/sale.service.mock');
 
 describe('Testa os services de vendas', function () {
@@ -87,6 +93,45 @@ describe('Testa os services de vendas', function () {
       const result = await saleService.deleteSale(999);
       expect(result.type).to.be.equal('NOT_FOUND');
       expect(result.message).to.be.equal('Sale not found');
+    });
+  });
+
+  describe('Atualizando uma venda', function () {
+    it('com sucesso', async function () {
+      sinon.stub(saleModel, 'update').resolves(updatedSale);
+      const result = await saleService.updateSale(1, dataToUpdate);
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal(updatedSale);
+    });
+
+    it('com um ID inválido', async function () {
+      const result = await saleService.updateSale(999, dataToUpdate);
+      expect(result.type).to.be.equal('NOT_FOUND');
+      expect(result.message).to.be.equal('Sale not found');
+    });
+
+    it('com quantidade inválida', async function () {
+      const result = await saleService.updateSale(1, invalidData);
+      expect(result.type).to.be.equal('INVALID_DATA');
+      expect(result.message).to.be.equal('"quantity" must be greater than or equal to 1');
+    });
+
+    it('sem um productId', async function () {
+      const result = await saleService.updateSale(1, dataWithoutId);
+      expect(result.type).to.be.equal('BAD_REQUEST');
+      expect(result.message).to.be.equal('"productId" is required');
+    });
+
+    it('sem quantity', async function () {
+      const result = await saleService.updateSale(1, dataWithoutQuantity);
+      expect(result.type).to.be.equal('BAD_REQUEST');
+      expect(result.message).to.be.equal('"quantity" is required');
+    });
+
+    it('com um productId inválido', async function () {
+      const result = await saleService.updateSale(1, dataWithInvalidProduct);
+      expect(result.type).to.be.equal('NOT_FOUND');
+      expect(result.message).to.be.equal('Product not found');
     });
   });
 
