@@ -19,6 +19,7 @@ const {
   salesResponse,
   salesFound,
   saleNotFound,
+  deleteResponse,
 } = require('./mocks/sale.controller.mock');
 
 chai.use(sinonChai);
@@ -165,6 +166,41 @@ describe('Testa os controllers de vendas', () => {
       expect(res.json).to.have.been.calledWith(salesFound);
     })
   })
+
+  describe('Excluindo uma venda', function () {
+    it('com sucesso', async function () {
+      const res = {};
+      const req = { params: { id: 1 } };
+
+      res.status = sinon.stub().returns(res);
+      res.end = sinon.stub().returns();
+
+      sinon
+        .stub(saleService, 'deleteSale')
+        .resolves(deleteResponse);
+
+      await saleController.deleteSale(req, res);
+
+      expect(res.status).to.have.been.calledWith(204);
+    });
+
+    it('com id inválido', async () => {
+      const res = {};
+      const req = { params: { id: 999 } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(saleService, 'deleteSale')
+        .resolves(saleNotFound);
+
+      await saleController.deleteSale(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: saleNotFound.message });
+    });
+  });
 
   afterEach(function () {
     sinon.restore();

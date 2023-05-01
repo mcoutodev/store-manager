@@ -85,6 +85,11 @@ const saleNotFound = {
   message: 'Sale not found',
 };
 
+const deleteResponse = {
+  type: null,
+  message: '',
+};
+
 module.exports = {
   insertId,
   saleProducts,
@@ -101,4 +106,5 @@ module.exports = {
   salesFound,
   salesResponse,
   saleNotFound,
+  deleteResponse,
 };

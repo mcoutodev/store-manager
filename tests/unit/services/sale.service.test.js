@@ -75,6 +75,21 @@ describe('Testa os services de vendas', function () {
     });
   });
 
+  describe('Deletando uma venda', function () {
+    it('com sucesso', async function () {
+      sinon.stub(saleModel, 'deleteSale').resolves(1);
+      const result = await saleService.deleteSale(1);
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.equal(1);
+    });
+
+    it('com um ID inválido', async function () {
+      const result = await saleService.deleteSale(999);
+      expect(result.type).to.be.equal('NOT_FOUND');
+      expect(result.message).to.be.equal('Sale not found');
+    });
+  });
+
   afterEach(function () {
     sinon.restore();
   });

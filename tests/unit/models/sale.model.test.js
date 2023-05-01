@@ -38,6 +38,12 @@ describe('Testa os models de vendas', function () {
     expect(result).to.be.deep.equal(salesFound);
   });
 
+  it('Deletando uma venda', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    const result = await saleModel.deleteSale(1);
+    expect(result).to.be.deep.equal(1);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

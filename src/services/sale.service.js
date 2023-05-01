@@ -43,8 +43,24 @@ const findAll = async () => {
   return { type: null, message: sales };
 };
 
+// Verifica a existência de uma venda
+const findSale = async (saleId) => {
+  const sale = await saleModel.findById(saleId);
+  if (!sale.length) return false;
+  return true;
+};
+
+const deleteSale = async (saleId) => {
+  if (!await findSale(saleId)) {
+    return { type: 'NOT_FOUND', message: 'Sale not found' };
+  }
+  const affectedRows = await saleModel.deleteSale(saleId);
+  return { type: null, message: affectedRows };
+};
+
 module.exports = {
   createSale,
   findById,
   findAll,
+  deleteSale,
 };
