@@ -13,6 +13,7 @@ const {
   newInvalidProduct,
   dataToUpdate,
   updatedProduct,
+  queryResult,
 } = require('./mocks/product.service.mock');
 
 describe('Testa os services de produtos', function () {
@@ -100,6 +101,15 @@ describe('Testa os services de produtos', function () {
       const result = await productService.deleteProduct(invalidId);
       expect(result.type).to.be.equal('NOT_FOUND');
       expect(result.message).to.be.equal('Product not found');
+    });
+  });
+
+  describe('Buscando produtos por um termo de busca', function () {
+    it('com sucesso', async function () {
+      sinon.stub(productModel, 'queryProducts').resolves(queryResult);
+      const result = await productService.queryProducts('ma');
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal(queryResult);
     });
   });
 

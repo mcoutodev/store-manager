@@ -22,6 +22,8 @@ const {
   updateResponse,
   updatedProduct,
   deleteResponse,
+  queryResponse,
+  queryResult,
 } = require('./mocks/product.controller.mock');
 
 chai.use(sinonChai);
@@ -203,6 +205,42 @@ describe('Testa os controllers de produtos', () => {
 
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({ message: productNotFound.message });
+    });
+  });
+
+  describe('Recuperando produtos por query', function () {
+    it('com sucesso', async function () {
+      const res = {};
+      const req = { query: { q: 'ma' } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productService, 'queryProducts')
+        .resolves(queryResponse);
+
+      await productController.queryProducts(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(queryResult);
+    });
+
+    it('retorna todos os produtos caso o termo de busca esteja vazio', async function () {
+      const res = {};
+      const req = { query: { q: '' } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productService, 'queryProducts')
+        .resolves(allProductsResponse);
+
+      await productController.queryProducts(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(products);
     });
   });
 

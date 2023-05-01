@@ -21,10 +21,18 @@ const dataToUpdate = { name: 'Martelo do Batman ' };
 
 const updatedProduct = { id: 1, ...dataToUpdate };
 
+const queryResult = [
+  {
+    id: 1,
+    name: 'Martelo de Thor',
+  },
+];
+
 module.exports = {
   products,
   newProduct,
   insertId,
   dataToUpdate,
   updatedProduct,
+  queryResult,
 };

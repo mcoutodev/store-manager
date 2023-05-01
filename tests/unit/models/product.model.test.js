@@ -9,6 +9,7 @@ const {
   insertId,
   updatedProduct,
   dataToUpdate,
+  queryResult,
 } = require('./mocks/product.model.mock');
 
 describe('Testa os models de produtos', function () {
@@ -40,6 +41,12 @@ describe('Testa os models de produtos', function () {
     sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
     const result = await productModel.deleteProduct(1);
     expect(result).to.be.equal(1);
+  });
+
+  it('Buscando um produto com o termo "ma"', async function () {
+    sinon.stub(connection, 'execute').resolves([queryResult]);
+    const result = await productModel.queryProducts('ma');
+    expect(result).to.be.deep.equal(queryResult);
   });
 
   afterEach(function () {

@@ -61,6 +61,18 @@ const deleteResponse = {
   message: '',
 };
 
+const queryResult = [
+  {
+    id: 1,
+    name: 'Martelo de Thor',
+  },
+];
+
+const queryResponse = {
+  type: null,
+  message: queryResult,
+};
+
 module.exports = {
   validId,
   invalidId,
@@ -78,4 +90,6 @@ module.exports = {
   updateResponse,
   updatedProduct,
   deleteResponse,
+  queryResult,
+  queryResponse,
 };

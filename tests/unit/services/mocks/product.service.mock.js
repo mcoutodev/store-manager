@@ -29,6 +29,13 @@ const dataToUpdate = { name: 'Martelo do Batman' };
 
 const updatedProduct = { id: 1, name: 'Martelo do Batman' };
 
+const queryResult = [
+  {
+    id: 1,
+    name: 'Martelo de Thor',
+  },
+];
+
 module.exports = {
   validId,
   invalidId,
@@ -39,4 +46,5 @@ module.exports = {
   newInvalidProduct,
   dataToUpdate,
   updatedProduct,
+  queryResult,
 };
